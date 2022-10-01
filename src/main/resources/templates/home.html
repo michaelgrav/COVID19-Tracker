@@ -51,8 +51,8 @@
 
                 <!-- If the total change was more cases, make the text red -->
                 <span th:switch="${totalNewCases > 0}">
-                    <span th:case="${true}" th:text="${maxDiffLocation.diffFromPreviousDay}" class="text-danger"></span>
-                    <span th:case="*" th:text="${maxDiffLocation.diffFromPreviousDay}" class="text-success"></span>
+                    <span th:case="${true}" th:text="${maxDiffLocationCasesFormatted}" class="text-danger"></span>
+                    <span th:case="*" th:text="${maxDiffLocationCasesFormatted}" class="text-success"></span>
                 </span>
 
                 <span>cases</span>
@@ -60,7 +60,7 @@
 
         </div>
 
-        <table class="table">
+        <table class="table table-striped">
             <tr class="thead-dark">
                 <th>State or Providence</th>
                 <th>Country</th>
@@ -79,6 +79,10 @@
             </tr>
         </table>
     </div>
+
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"> Made with ❤️ by Michael Graves </a>
+    </nav>
 
     </body>
 

@@ -21,10 +21,14 @@ public class HomeController {
     @GetMapping("/") // root url
     public String home(Model model) {
         model.addAttribute("locationStats", coronavirusDataService.getAllStats());
+
+        // Format the numbers to include commas
         model.addAttribute("totalReportedCases", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getTotalReportedCases()));
         model.addAttribute("totalNewCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getTotalNewCases()));
+
         model.addAttribute("totalNewCases", coronavirusDataService.getTotalNewCases());
         model.addAttribute("maxDiffLocation", coronavirusDataService.getMaxDiffLocation());
+        model.addAttribute("maxDiffLocationCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getMaxDiffLocation().getDiffFromPreviousDay()));
 
         return "home"; // Maps to the home html file
     }
