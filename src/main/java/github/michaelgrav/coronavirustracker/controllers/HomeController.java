@@ -26,7 +26,8 @@ public class HomeController {
 
         model.addAttribute("locationStats", allStats);
         model.addAttribute("totalReportedCases", NumberFormat.getNumberInstance(Locale.US).format(totalReportedCases));
-        model.addAttribute("totalNewCases", NumberFormat.getNumberInstance(Locale.US).format(totalNewCases));
+        model.addAttribute("totalNewCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(totalNewCases));
+        model.addAttribute("totalNewCases", totalNewCases);
 
         return "home"; // Maps to the home html file
     }
