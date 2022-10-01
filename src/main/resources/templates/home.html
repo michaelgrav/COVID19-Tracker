@@ -19,10 +19,14 @@
             <p class="lead">Total cases reported as of today</p>
 
             <hr class="my-4">
-            <p>
+
+            <p th:switch="${totalNewCases > 0}">
                 <span>Change in cases reported since previous day:</span>
-                <span th:text="${totalNewCases}"></span>
+
+                <span th:case="${true}" th:text="${totalNewCasesFormatted}" class="text-danger"></span>
+                <span th:case="*" th:text="${totalNewCasesFormatted}" class="text-success"></span>
             </p>
+
         </div>
 
         <table class="table">
@@ -32,11 +36,15 @@
                 <th>Total Cases Reported</th>
                 <th>Changes since last day</th>
             </tr>
+
+
             <tr th:each="locationStat : ${locationStats}">
+
                 <td th:text="${locationStat.state}"></td>
                 <td th:text="${locationStat.country}"></td>
                 <td th:text="${locationStat.latestTotalCases}">0</td>
-                <td th:text="${locationStat.diffFromPreviousDay}">0</td>
+                <td th:if="${locationStat.diffFromPreviousDay > 0}" th:text="${locationStat.diffFromPreviousDay}" class="text-danger">0</td>
+                <td th:unless="${locationStat.diffFromPreviousDay > 0}" th:text="${locationStat.diffFromPreviousDay}" class="text-success">0</td>
             </tr>
         </table>
     </div>
