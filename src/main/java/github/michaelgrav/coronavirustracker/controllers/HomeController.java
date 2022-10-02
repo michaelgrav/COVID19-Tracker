@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -18,7 +16,7 @@ public class HomeController {
     @Autowired
     CoronavirusDataService coronavirusDataService;
 
-    @GetMapping("/") // root url
+    @GetMapping("") // root url
     public String home(Model model) {
         model.addAttribute("locationStats", coronavirusDataService.getAllStats());
 

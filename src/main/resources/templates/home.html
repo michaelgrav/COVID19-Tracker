@@ -7,26 +7,40 @@
         <title>COVID-19 Tracker Application</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
 
     <body>
 
     <div class="container">
+        <!--
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand">
                 <img src="/navbaricon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 by Michael Graves
             </a>
         </nav>
+        -->
 
-
-        <h1>COVID-19 Tracker</h1>
-        <p>This application lists the current number of cases reported across the globe</p>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">COVID-19 Tracker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="/charts">Charts</a>
+                    <a class="nav-item nav-link" href="/info.html">Application Info</a>
+                </div>
+            </div>
+        </nav>
 
         <div class="jumbotron">
             <h1 class="display-4" th:text="${totalReportedCases}"></h1>
             <p class="lead">Total cases reported as of today</p>
-
             <hr class="my-4">
 
             <p th:switch="${totalNewCases > 0}">
@@ -60,6 +74,11 @@
 
         </div>
 
+
+
+
+
+        <!-- Table for data -->
         <table class="table table-striped">
             <tr class="thead-dark">
                 <th>State or Providence</th>
@@ -85,5 +104,4 @@
     </nav>
 
     </body>
-
 </html>
