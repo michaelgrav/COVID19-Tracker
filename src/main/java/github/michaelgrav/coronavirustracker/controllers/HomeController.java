@@ -1,6 +1,5 @@
 package github.michaelgrav.coronavirustracker.controllers;
 
-import github.michaelgrav.coronavirustracker.models.LocationStats;
 import github.michaelgrav.coronavirustracker.services.CoronavirusDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
