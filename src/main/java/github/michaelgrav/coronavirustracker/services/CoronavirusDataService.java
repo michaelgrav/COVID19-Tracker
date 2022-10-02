@@ -13,8 +13,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 // Mark this as a spring service
@@ -94,5 +94,35 @@ public class CoronavirusDataService {
 
     public List<LocationStats> getAllStats() {
         return allStats;
+    }
+
+    public Map<String, Long> getDataForGraph() {
+        Map<String, Long> graphData = new TreeMap<>();
+        for (LocationStats location: getAllStats()) {
+            if (!graphData.containsKey(location.getCountry())) {
+                graphData.put(location.getCountry(), location.getLatestTotalCases());
+            } else {
+                graphData.put(location.getCountry(), graphData.get(location.getCountry()) + location.getLatestTotalCases());
+            }
+        }
+
+        return graphData;
+    }
+
+    public Map<String, Long> getTop10ForGraph() {
+        Map<String, Long> topTenData = new TreeMap<>(Collections.reverseOrder());
+        for (LocationStats location: getAllStats()) {
+            if (!topTenData.containsKey(location.getCountry())) {
+                topTenData.put(location.getCountry(), location.getLatestTotalCases());
+            } else {
+                topTenData.put(location.getCountry(), topTenData.get(location.getCountry()) + location.getLatestTotalCases());
+            }
+        }
+        
+        return topTenData.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(10)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 }

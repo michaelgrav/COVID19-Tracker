@@ -18,16 +18,9 @@ public class ChartController {
 
     @GetMapping("/charts") // root url
     public String charts(Model model) {
-        Map<String, Long> graphData = new TreeMap<>();
-        for (LocationStats location: coronavirusDataService.getAllStats()) {
-            if (!graphData.containsKey(location.getCountry())) {
-                graphData.put(location.getCountry(), location.getLatestTotalCases());
-            } else {
-                graphData.put(location.getCountry(), graphData.get(location.getCountry()) + location.getLatestTotalCases());
-            }
-        }
-        model.addAttribute("chartData", graphData);
+        model.addAttribute("chartData", coronavirusDataService.getDataForGraph());
+        model.addAttribute("chartDataForTop10", coronavirusDataService.getTop10ForGraph());
 
-        return "charts"; // Maps to the home html file
+        return "charts"; // Maps to the chart html file
     }
 }

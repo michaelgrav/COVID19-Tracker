@@ -1,6 +1,6 @@
 package github.michaelgrav.coronavirustracker.models;
 
-public class LocationStats {
+public class LocationStats implements Comparable<LocationStats> {
     private String state;
     private String country;
     private long latestTotalCases;
@@ -47,5 +47,10 @@ public class LocationStats {
                 ", country='" + country + '\'' +
                 ", latestTotalCases=" + latestTotalCases +
                 '}';
+    }
+
+    @Override
+    public int compareTo(LocationStats o) {
+        return (int) (this.latestTotalCases - o.getLatestTotalCases());
     }
 }
