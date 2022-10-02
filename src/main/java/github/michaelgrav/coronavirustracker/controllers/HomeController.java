@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,15 +20,15 @@ public class HomeController {
 
     @GetMapping("/") // root url
     public String home(Model model) {
-        // This could be moved into the covidDatService file
-        List<LocationStats> allStats = coronavirusDataService.getAllStats();
-        long totalReportedCases = allStats.stream().mapToLong(LocationStats::getLatestTotalCases).sum();
-        long totalNewCases = allStats.stream().mapToLong(LocationStats::getDiffFromPreviousDay).sum();
+        model.addAttribute("locationStats", coronavirusDataService.getAllStats());
 
-        model.addAttribute("locationStats", allStats);
-        model.addAttribute("totalReportedCases", NumberFormat.getNumberInstance(Locale.US).format(totalReportedCases));
-        model.addAttribute("totalNewCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(totalNewCases));
-        model.addAttribute("totalNewCases", totalNewCases);
+        // Format the numbers to include commas
+        model.addAttribute("totalReportedCases", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getTotalReportedCases()));
+        model.addAttribute("totalNewCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getTotalNewCases()));
+
+        model.addAttribute("totalNewCases", coronavirusDataService.getTotalNewCases());
+        model.addAttribute("maxDiffLocation", coronavirusDataService.getMaxDiffLocation());
+        model.addAttribute("maxDiffLocationCasesFormatted", NumberFormat.getNumberInstance(Locale.US).format(coronavirusDataService.getMaxDiffLocation().getDiffFromPreviousDay()));
 
         return "home"; // Maps to the home html file
     }

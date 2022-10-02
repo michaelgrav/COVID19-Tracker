@@ -3,6 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
+        <link rel="shortcut icon" type="image/ico" th:href="@{favicon.ico}"/>
         <title>COVID-19 Tracker Application</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -11,6 +12,14 @@
     <body>
 
     <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">
+                <img src="/navbaricon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                by Michael Graves
+            </a>
+        </nav>
+
+
         <h1>COVID-19 Tracker</h1>
         <p>This application lists the current number of cases reported across the globe</p>
 
@@ -25,12 +34,34 @@
 
                 <span th:case="${true}" th:text="${totalNewCasesFormatted}" class="text-danger"></span>
                 <span th:case="*" th:text="${totalNewCasesFormatted}" class="text-success"></span>
+
+                <br/>
+
+                <span>The maximum increase in cases is located in </span>
+
+                <!-- If the state or providence of the max diff was not in the data, don't print out that part of the sentence-->
+                <span th:switch="${!maxDiffLocation.state.isBlank()}">
+                    <!-- If it was, print it and add a comma-->
+                    <span th:case="${true}" th:text="${maxDiffLocation.state}" class="text-danger"></span>
+                    <span th:case="${true}">, </span>
+                </span>
+
+                <span th:text="${maxDiffLocation.country}"> </span>
+                <span>with a change of </span>
+
+                <!-- If the total change was more cases, make the text red -->
+                <span th:switch="${totalNewCases > 0}">
+                    <span th:case="${true}" th:text="${maxDiffLocationCasesFormatted}" class="text-danger"></span>
+                    <span th:case="*" th:text="${maxDiffLocationCasesFormatted}" class="text-success"></span>
+                </span>
+
+                <span>cases</span>
             </p>
 
         </div>
 
-        <table class="table">
-            <tr>
+        <table class="table table-striped">
+            <tr class="thead-dark">
                 <th>State or Providence</th>
                 <th>Country</th>
                 <th>Total Cases Reported</th>
@@ -48,6 +79,10 @@
             </tr>
         </table>
     </div>
+
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"> Made with ❤️ by Michael Graves </a>
+    </nav>
 
     </body>
 

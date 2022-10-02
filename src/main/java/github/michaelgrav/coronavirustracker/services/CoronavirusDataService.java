@@ -67,6 +67,31 @@ public class CoronavirusDataService {
         this.allStats = newStats;
     }
 
+    public LocationStats getMaxDiffLocation() {
+        LocationStats maxDiffLocation = null;
+        long maxDiff = Long.MIN_VALUE;
+
+        // Find the location that had the greatest change in cases
+        for (LocationStats location : allStats) {
+            if (location.getDiffFromPreviousDay() > maxDiff)  {
+                maxDiff = location.getDiffFromPreviousDay();
+                maxDiffLocation = location;
+            }
+        }
+
+        return maxDiffLocation;
+    }
+
+    public long getTotalReportedCases() {
+        // Add all of the total cases at each location
+        return allStats.stream().mapToLong(LocationStats::getLatestTotalCases).sum();
+    }
+
+    public long getTotalNewCases() {
+        // Add all of the change in cases at each location
+        return allStats.stream().mapToLong(LocationStats::getDiffFromPreviousDay).sum();
+    }
+
     public List<LocationStats> getAllStats() {
         return allStats;
     }
