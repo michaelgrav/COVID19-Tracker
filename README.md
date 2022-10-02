@@ -14,6 +14,8 @@ This application lists the current number of cases reported across the globe, th
 
 [Link to data](https://github.com/CSSEGISandData/COVID-19)
 
+To run the application, simply run the CoronavirusTrackerApplication file and navigate to http://localhost:8080/ in your web browser
+
 Main menu                 |
 :-------------------------:|
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29133471/193479138-4a8e2bef-460e-4fd6-8b30-b203394a902c.png"> |
