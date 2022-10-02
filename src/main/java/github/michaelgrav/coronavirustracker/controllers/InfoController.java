@@ -17,6 +17,6 @@ public class InfoController {
 
     @GetMapping("/info") // root url
     public String info() {
-        return "info.html"; // Maps to the info html file
+        return "info"; // Maps to the info html file
     }
 }

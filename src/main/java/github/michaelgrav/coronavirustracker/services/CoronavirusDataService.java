@@ -118,7 +118,7 @@ public class CoronavirusDataService {
                 topTenData.put(location.getCountry(), topTenData.get(location.getCountry()) + location.getLatestTotalCases());
             }
         }
-        
+
         return topTenData.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(10)
